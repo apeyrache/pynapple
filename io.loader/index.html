@@ -847,6 +847,7 @@
 <a id="pynapple.io.loader"></a>
     <div class="doc doc-contents first">
 
+      <p>BaseLoader is the general class for loading session with pynapple.</p>
 
 
 
@@ -872,6 +873,7 @@ BaseLoader        </code>
 
     <div class="doc doc-contents ">
 
+      <p>General loader for epochs and tracking data</p>
 
         <details class="quote">
           <summary>Source code in <code>pynapple\io\loader.py</code></summary>
@@ -1245,7 +1247,58 @@ BaseLoader        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Load tracking data exported with Optitrack.</p>
+<p>By default, the function reads rows 4 and 5 to build the column names.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>csv_file</code></td>
+        <td><code>str</code></td>
+        <td><p>path to the csv file</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>RuntimeError</code></td>
+        <td><p>If header names are unknown. Should be 'Position' and 'Rotation'</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pandas.DataFrame</code></td>
+      <td><p>_</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\io\loader.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_optitrack_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csv_file</span><span class="p">):</span>
@@ -1302,7 +1355,42 @@ BaseLoader        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Load tracking data exported with DeepLabCut</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>csv_file</code></td>
+        <td><code>str</code></td>
+        <td><p>path to the csv file</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pandas.DataFrame</code></td>
+      <td><p>_</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\io\loader.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_dlc_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">csv_file</span><span class="p">):</span>
@@ -1343,7 +1431,66 @@ BaseLoader        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Load TTLs from a binary file. Each TTLs is then used to reaassign the time index of tracking frames.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>ttl_file</code></td>
+        <td><code>str</code></td>
+        <td><p>File name</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>n_channels</code></td>
+        <td><code>int</code></td>
+        <td><p>The number of channels in the binary file.</p></td>
+        <td><code>1</code></td>
+      </tr>
+      <tr>
+        <td><code>channel</code></td>
+        <td><code>int</code></td>
+        <td><p>Which channel contains the TTL</p></td>
+        <td><code>0</code></td>
+      </tr>
+      <tr>
+        <td><code>bytes_size</code></td>
+        <td><code>int</code></td>
+        <td><p>Bytes size of the binary file.</p></td>
+        <td><code>2</code></td>
+      </tr>
+      <tr>
+        <td><code>fs</code></td>
+        <td><code>float</code></td>
+        <td><p>Sampling frequency of the binary file</p></td>
+        <td><code>20000.0</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pd.Series</code></td>
+      <td><p>A series containing the time index of the TTL.</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\io\loader.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_ttl_pulse</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ttl_file</span><span class="p">,</span> <span class="n">tracking_frequency</span><span class="p">,</span> <span class="n">n_channels</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">channel</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">bytes_size</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">fs</span><span class="o">=</span><span class="mf">20000.0</span><span class="p">,</span> <span class="n">threshold</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,):</span>
@@ -1406,7 +1553,27 @@ BaseLoader        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Initialize the NWB file in the folder pynapplenwb within the data folder.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>path</code></td>
+        <td><code>str</code></td>
+        <td><p>The path to save the data</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\io\loader.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">create_nwb_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
@@ -1495,7 +1662,27 @@ BaseLoader        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Load NWB data save with pynapple in the pynapplenwb folder</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>path</code></td>
+        <td><code>str</code></td>
+        <td><p>Path to the session folder</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\io\loader.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>

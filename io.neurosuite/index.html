@@ -581,6 +581,19 @@
     load_neurosuite_xml()
   </a>
   
+    <nav class="md-nav" aria-label="load_neurosuite_xml()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pynapple.io.neurosuite.NeuroSuite.load_neurosuite_xml--function-reads" class="md-nav__link">
+    Function reads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -802,6 +815,19 @@
     load_neurosuite_xml()
   </a>
   
+    <nav class="md-nav" aria-label="load_neurosuite_xml()">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pynapple.io.neurosuite.NeuroSuite.load_neurosuite_xml--function-reads" class="md-nav__link">
+    Function reads
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
           <li class="md-nav__item">
@@ -847,6 +873,7 @@
 <a id="pynapple.io.neurosuite"></a>
     <div class="doc doc-contents first">
 
+      <p>Class and functions for loading data processed with the Neurosuite (Klusters, Neuroscope, NDmanager)</p>
 
 
 
@@ -873,6 +900,7 @@ NeuroSuite            (<a title="pynapple.io.loader.BaseLoader" href="../io.load
 
     <div class="doc doc-contents ">
 
+      <p>Loader for kluster data</p>
 
         <details class="quote">
           <summary>Source code in <code>pynapple\io\neurosuite.py</code></summary>
@@ -1179,7 +1207,27 @@ NeuroSuite            (<a title="pynapple.io.loader.BaseLoader" href="../io.load
 
     <div class="doc doc-contents ">
 
+      <p>Instantiate the data class from a neurosuite folder.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>path</code></td>
+        <td><code>str</code></td>
+        <td><p>The path to the data.</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\io\neurosuite.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
@@ -1242,7 +1290,61 @@ NeuroSuite            (<a title="pynapple.io.loader.BaseLoader" href="../io.load
 
     <div class="doc doc-contents ">
 
+      <p>Read the clus and res files and convert to NWB.</p>
+<p>Instantiate automatically a TsGroup object.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>path</code></td>
+        <td><code>str</code></td>
+        <td><p>The path to the data</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>basename</code></td>
+        <td><code>str</code></td>
+        <td><p>Basename of the clu and res files.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>time_support</code></td>
+        <td><code>IntevalSet</code></td>
+        <td><p>The time support of the data</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>fs</code></td>
+        <td><code>float</code></td>
+        <td><p>Sampling rate of the recording.</p></td>
+        <td><code>20000.0</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>RuntimeError</code></td>
+        <td><p>If number of clu and res are not equal.</p></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\io\neurosuite.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_neurosuite_spikes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">path</span><span class="p">,</span> <span class="n">basename</span><span class="p">,</span> <span class="n">time_support</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">fs</span> <span class="o">=</span> <span class="mf">20000.0</span><span class="p">):</span>
@@ -1336,7 +1438,49 @@ NeuroSuite            (<a title="pynapple.io.loader.BaseLoader" href="../io.load
 
     <div class="doc doc-contents ">
 
+      <p>path should be the folder session containing the XML file</p>
+<h5 id="pynapple.io.neurosuite.NeuroSuite.load_neurosuite_xml--function-reads">Function reads</h5>
+<ol>
+<li>the number of channels</li>
+<li>the sampling frequency of the dat file or the eeg file depending of what is present in the folder
+    eeg file first if both are present or both are absent</li>
+<li>the mappings shanks to channels as a dict</li>
+</ol>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>path</code></td>
+        <td><code>str</code></td>
+        <td><p>The path to the data</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>RuntimeError</code></td>
+        <td><p>If path does not contain the xml file.</p></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\io\neurosuite.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_neurosuite_xml</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
@@ -1399,7 +1543,27 @@ NeuroSuite            (<a title="pynapple.io.loader.BaseLoader" href="../io.load
 
     <div class="doc doc-contents ">
 
+      <p>Save the data to NWB format.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>path</code></td>
+        <td><code>str</code></td>
+        <td><p>The path to save the data</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\io\neurosuite.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">save_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
@@ -1491,7 +1655,42 @@ NeuroSuite            (<a title="pynapple.io.loader.BaseLoader" href="../io.load
 
     <div class="doc doc-contents ">
 
+      <p>Read the NWB spikes to extract the spike times.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>path</code></td>
+        <td><code>str</code></td>
+        <td><p>The path to the data</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>TYPE</code></td>
+      <td><p>Description</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\io\neurosuite.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_nwb_spikes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>

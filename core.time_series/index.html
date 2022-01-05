@@ -1106,7 +1106,31 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>A subclass of pandas.Series specialized for neurophysiology time series.</p>
+<p>Tsd provides standardized time representation, plus various functions for manipulating times series.</p>
 
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>rate</code></td>
+        <td><code>float</code></td>
+        <td><p>Frequency of the time series (Hz) computed over the time support</p></td>
+      </tr>
+      <tr>
+        <td><code>time_support</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The time support of the time series</p></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Tsd</span><span class="p">():</span>
@@ -1528,7 +1552,51 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Tsd Initializer.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>t</code></td>
+        <td><code>numpy.ndarray or pandas.Series</code></td>
+        <td><p>An object transformable in a time series, or a pandas.Series equivalent (if d is None)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>d</code></td>
+        <td><code>numpy.ndarray</code></td>
+        <td><p>The data of the time series</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>time_units</code></td>
+        <td><code>str</code></td>
+        <td><p>The time units in which times are specified (in s, ms or us)</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>time_support</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The time support of the tsd object</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>None</code></td>
+        <td><p>Arguments that will be passed to the pandas.Series initializer.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_support</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1599,7 +1667,42 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>The time index of the Tsd, returned as np.double in the desired time units.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>units</code></td>
+        <td><code>str</code></td>
+        <td><p>us, ms, or s (default is us)</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>numpy.ndarray</code></td>
+      <td><p>the time indexes</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1638,7 +1741,23 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Convert the Ts/Tsd object to a pandas.Series object.</p>
 
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pandas.Series</code></td>
+      <td><p>_</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">as_series</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1671,7 +1790,42 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Returns a Series with time expressed in the desired unit.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>units</code></td>
+        <td><code>str</code></td>
+        <td><p>us, ms, or s (default is us)</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pandas.Series</code></td>
+      <td><p>the series object with adjusted times</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">as_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -1717,7 +1871,23 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>The data in the Tsd object</p>
 
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>numpy.ndarray</code></td>
+      <td><p>_</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1750,7 +1920,72 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Replace the value with the closest value from tsd argument</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>tsd</code></td>
+        <td><code>Tsd</code></td>
+        <td><p>The Tsd object holding the values to replace</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>ep</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The IntervalSet object to restrict the operation</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>align</code></td>
+        <td><code>str</code></td>
+        <td><p>The method to align (closest/prev/next)</p></td>
+        <td><code>&#39;closest&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <p>In this example, the ts object will receive the closest values in time from tsd.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">100</span><span class="p">)))</span> <span class="c1"># random times</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>             
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsd</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">Tsd</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1000</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ep</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">IntervalSet</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> <span class="n">time_units</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+</code></pre></div>
+    <p>The variable ts is a time series object containing only nan.
+The tsd object containing the values, for example the tracking data, and the epoch to restrict the operation.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">newts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">value_from</span><span class="p">(</span><span class="n">tsd</span><span class="p">,</span> <span class="n">ep</span><span class="p">)</span>
+</code></pre></div>
+    <p>newts is the same size as ts restrict to ep.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">ts</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span><span class="n">ep</span><span class="p">)),</span> <span class="nb">len</span><span class="p">(</span><span class="n">newts</span><span class="p">))</span>
+    <span class="mi">52</span> <span class="mi">52</span>
+</code></pre></div>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tsd</code></td>
+      <td><p>Tsd object with the new values</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">value_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tsd</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;closest&#39;</span><span class="p">):</span>
@@ -1817,7 +2052,63 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Restricts a Tsd object to a set of time intervals delimited by an IntervalSet object</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>ep</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>the IntervalSet object</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>keep_labels</code></td>
+        <td><code>bool</code></td>
+        <td><p>Wheter or not to drop the label of a column</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <p>The Ts object is restrict to the intervals defined by ep.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">100</span><span class="p">)))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ep</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">IntervalSet</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">newts</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span><span class="n">ep</span><span class="p">)</span>
+</code></pre></div>
+    <p>The time support of newts automatically inherit the epochs defined by ep.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">newts</span><span class="o">.</span><span class="n">time_support</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="n">start</span>    <span class="n">end</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">0</span>    <span class="mf">0.0</span>  <span class="mf">500.0</span>
+</code></pre></div>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tsd</code></td>
+      <td><p>Tsd object restricted to ep</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">restrict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">keep_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -1881,7 +2172,74 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Count occurences of events within bin_size. </p>
+<p>bin_size should be seconds unless specified.
+If no epochs is passed, the data will be binned based on the time support.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>bin_size</code></td>
+        <td><code>float</code></td>
+        <td><p>The bin size (default is second)</p></td>
+        <td><code>&#39;second&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>ep</code></td>
+        <td><code>None or IntervalSet</code></td>
+        <td><p>IntervalSet to restrict the operation</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>time_units</code></td>
+        <td><code>str</code></td>
+        <td><p>Time units of bin size (us, ms, s)</p></td>
+        <td><code>&#39;s&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <p>This example shows how to count events within bins of 0.1 second.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">100</span><span class="p">)))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ts</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">t</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bincount</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+</code></pre></div>
+    <p>An epoch can be specified:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">ep</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">IntervalSet</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">800</span><span class="p">,</span> <span class="n">time_units</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bincount</span> <span class="o">=</span> <span class="n">ts</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">ep</span><span class="o">=</span><span class="n">ep</span><span class="p">)</span>
+</code></pre></div>
+    <p>And bincount automatically inherit ep as time support: </p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">bincount</span><span class="o">.</span><span class="n">time_support</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="n">start</span>    <span class="n">end</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">0</span>  <span class="mf">100.0</span>  <span class="mf">800.0</span>
+</code></pre></div>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tsd</code></td>
+      <td><p>A Tsd object indexed by the center of the bins.</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">,</span> <span class="n">ep</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">time_units</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span><span class="p">):</span>
@@ -1962,7 +2320,81 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Apply a threshold function to the tsd to return a new tsd </p>
+<p>with the time support being the epochs above/below the threshold</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>thr</code></td>
+        <td><code>float</code></td>
+        <td><p>The threshold value</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>method</code></td>
+        <td><code>str</code></td>
+        <td><p>The threshold method (above/below)</p></td>
+        <td><code>&#39;above&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>ValueError</code></td>
+        <td><p>Raise an error if method is not 'below' or 'above'</p></td>
+      </tr>
+      <tr>
+        <td><code>RuntimeError</code></td>
+        <td><p>Raise an error if thr is too high/low and no epochs is found.</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <p>This example finds all epoch above 0.5 within the tsd object.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsd</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">Tsd</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">))</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">newtsd</span> <span class="o">=</span> <span class="n">tsd</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="mf">0.5</span><span class="p">)</span>
+</code></pre></div>
+    <p>The epochs with the times above/below the threshold can be accessed through the time support:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">tsd</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">Tsd</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsd</span><span class="o">.</span><span class="n">threshold</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="o">.</span><span class="n">time_support</span>
+<span class="o">&gt;&gt;&gt;</span>    <span class="n">start</span>   <span class="n">end</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="mi">0</span>   <span class="mf">50.5</span>  <span class="mf">99.0</span>
+</code></pre></div>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tsd</code></td>
+      <td><p>All the time points below or above the threshold</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">thr</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s1">&#39;above&#39;</span><span class="p">):</span>
@@ -2057,7 +2489,42 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>The first time index in the Ts/Tsd object</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>units</code></td>
+        <td><code>str</code></td>
+        <td><p>us, ms or s (default is us)</p></td>
+        <td><code>&#39;us&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>numpy.float64</code></td>
+      <td><p>_</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">start_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;us&#39;</span><span class="p">):</span>
@@ -2095,7 +2562,42 @@ Tsd        </code>
 
     <div class="doc doc-contents ">
 
+      <p>The last time index in the Ts/Tsd object</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>units</code></td>
+        <td><code>str</code></td>
+        <td><p>us, ms or s (default is us)</p></td>
+        <td><code>&#39;us&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>numpy.float64</code></td>
+      <td><p>_</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">end_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="s1">&#39;us&#39;</span><span class="p">):</span>
@@ -2145,7 +2647,31 @@ TsdFrame        </code>
 
     <div class="doc doc-contents ">
 
+      <p>A subclass of pandas.DataFrame specialized for neurophysiological time series.</p>
+<p>TsdFrame provides standardized time representation, plus various functions for manipulating times series with identical sampling frequency.</p>
 
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>rate</code></td>
+        <td><code>float</code></td>
+        <td><p>Frequency of the time series (Hz) computed over the time support</p></td>
+      </tr>
+      <tr>
+        <td><code>time_support</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The time support of the time series</p></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">TsdFrame</span><span class="p">():</span>
@@ -2362,7 +2888,51 @@ TsdFrame        </code>
 
     <div class="doc doc-contents ">
 
+      <p>TsdFrame initializer</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>t</code></td>
+        <td><code>numpy.ndarray or pandas.DataFrame</code></td>
+        <td><p>the time index t,  or a pandas.DataFrame (if d is None)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>d</code></td>
+        <td><code>numpy.ndarray</code></td>
+        <td><p>The data</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>time_units</code></td>
+        <td><code>str</code></td>
+        <td><p>The time units in which times are specified</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>time_support</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The time support of the TsdFrame object</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>None</code></td>
+        <td><p>Arguments that will be passed to the pandas.DataFrame initializer.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_support</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -2436,7 +3006,42 @@ TsdFrame        </code>
 
     <div class="doc doc-contents ">
 
+      <p>The time index of the TsdFrame, returned as np.double in the desired time units.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>units</code></td>
+        <td><code>str</code></td>
+        <td><p>us, ms, or s (default is us)</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>numpy.ndarray        </code></td>
+      <td><p>_</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">times</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -2474,7 +3079,23 @@ TsdFrame        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Convert the TsdFrame object to a pandas.DataFrame object.</p>
 
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pandas.DataFrame</code></td>
+      <td><p>_</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">as_dataframe</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">copy</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
@@ -2507,7 +3128,42 @@ TsdFrame        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Returns a DataFrame with time expressed in the desired unit.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>units</code></td>
+        <td><code>str</code></td>
+        <td><p>us, ms, or s (default is us)</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pandas.DataFrame</code></td>
+      <td><p>the series object with adjusted times</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">as_units</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">units</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
@@ -2553,7 +3209,23 @@ TsdFrame        </code>
 
     <div class="doc doc-contents ">
 
+      <p>The data in the TsdFrame object</p>
 
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>numpy.ndarray</code></td>
+      <td><p>_</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -2589,7 +3261,48 @@ TsdFrame        </code>
 
     <div class="doc doc-contents ">
 
+      <p>Restricts a TsdFrame object to a set of time intervals delimited by an IntervalSet object`</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>iset</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>the IntervalSet object</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>keep_labels</code></td>
+        <td><code>bool</code></td>
+        <td><p>Wheter or not to drop the label of a column</p></td>
+        <td><code>False</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>TsdFrame</code></td>
+      <td><p>TsdFrame object restricted to ep</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">restrict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iset</span><span class="p">,</span> <span class="n">keep_labels</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
@@ -2654,7 +3367,32 @@ Ts            (<a title="pynapple.core.time_series.Tsd" href="#pynapple.core.tim
 
     <div class="doc doc-contents ">
 
+      <p>A subclass of the Tsd object for a time series with only time index,</p>
+<p>By default, the values are set to nan.
+All the functions of a Tsd object are available in a Ts object.</p>
 
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>rate</code></td>
+        <td><code>float</code></td>
+        <td><p>Frequency of the time series (Hz) computed over the time support</p></td>
+      </tr>
+      <tr>
+        <td><code>time_support</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The time support of the time series</p></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">Ts</span><span class="p">(</span><span class="n">Tsd</span><span class="p">):</span>
@@ -2718,7 +3456,45 @@ Ts            (<a title="pynapple.core.time_series.Tsd" href="#pynapple.core.tim
 
     <div class="doc doc-contents ">
 
+      <p>Ts Initializer</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>t</code></td>
+        <td><code>numpy.ndarray or pandas.Series</code></td>
+        <td><p>An object transformable in a time series, or a pandas.Series equivalent (if d is None)</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>time_units</code></td>
+        <td><code>str</code></td>
+        <td><p>The time units in which times are specified (in s, ms or us)</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>time_support</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The time support of the Ts object</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>None</code></td>
+        <td><p>Arguments that will be passed to the pandas.Series initializer.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\time_series.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_support</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span><span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>

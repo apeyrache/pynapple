@@ -803,7 +803,87 @@
 
     <div class="doc doc-contents ">
 
+      <p>Performs Bayesian decoding over a one dimensional feature.</p>
+<p>See: 
+Zhang, K., Ginzburg, I., McNaughton, B. L., &amp; Sejnowski, T. J. 
+(1998). Interpreting neuronal population activity by 
+reconstruction: unified framework with application to 
+hippocampal place cells. Journal of neurophysiology, 79(2), 
+1017-1044.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>tuning_curves</code></td>
+        <td><code>pandas.DataFrame</code></td>
+        <td><p>Each column is the tuning curve of one neuron relative to the feature. Index should be the center of the bin.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>group</code></td>
+        <td><code>TsGroup or dict of Ts/Tsd object.</code></td>
+        <td><p>A group of neurons with the same index as tuning curves column names.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>feature</code></td>
+        <td><code>Tsd</code></td>
+        <td><p>The 1d feature used to compute the tuning curves. Used to correct for occupancy.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>ep</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The epoch on which decoding is computed</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>bin_size</code></td>
+        <td><code>float</code></td>
+        <td><p>Bin size in seconds</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>RuntimeError</code></td>
+        <td><p>If indexes don't match between tuning_curves and group</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tsd</code></td>
+      <td><p>The decoded feature</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\process\decoding.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">decode_1d</span><span class="p">(</span><span class="n">tuning_curves</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">):</span>
@@ -912,7 +992,93 @@
 
     <div class="doc doc-contents ">
 
+      <p>Performs Bayesian decoding over a two dimensional feature.</p>
+<p>See: 
+Zhang, K., Ginzburg, I., McNaughton, B. L., &amp; Sejnowski, T. J. 
+(1998). Interpreting neuronal population activity by 
+reconstruction: unified framework with application to 
+hippocampal place cells. Journal of neurophysiology, 79(2), 
+1017-1044.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>tuning_curves</code></td>
+        <td><code>dict</code></td>
+        <td><p>Dictionnay of 2d tuning curves (one for each neuron).</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>group</code></td>
+        <td><code>TsGroup or dict of Ts/Tsd object.</code></td>
+        <td><p>A group of neurons with the same index as tuning curve column names.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>feature</code></td>
+        <td><code>Tsd</code></td>
+        <td><p>The 2d feature used to compute the tuning curves. Used to correct for occupancy.</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>ep</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The epoch on which decoding is computed</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>bin_size</code></td>
+        <td><code>float</code></td>
+        <td><p>Bin size in seconds</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>xy</code></td>
+        <td><code>tuple</code></td>
+        <td><p>A tuple of bin positions for the tuning curves i.e. xy=(x,y)</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>RuntimeError</code></td>
+        <td><p>If indexes don't match between tuning_curves and group</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Tsd</code></td>
+      <td><p>The decoded feature in 2d</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\process\decoding.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">decode_2d</span><span class="p">(</span><span class="n">tuning_curves</span><span class="p">,</span> <span class="n">group</span><span class="p">,</span> <span class="n">feature</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">,</span> <span class="n">xy</span><span class="p">):</span>
@@ -931,7 +1097,7 @@
 <span class="sd">	    Dictionnay of 2d tuning curves (one for each neuron).</span>
 <span class="sd">	group: TsGroup or dict of Ts/Tsd object.</span>
 <span class="sd">	    A group of neurons with the same index as tuning curve column names.</span>
-<span class="sd">	variable: Tsd</span>
+<span class="sd">	feature: Tsd</span>
 <span class="sd">	    The 2d feature used to compute the tuning curves. Used to correct for occupancy.</span>
 <span class="sd">	ep: IntervalSet</span>
 <span class="sd">	    The epoch on which decoding is computed</span>

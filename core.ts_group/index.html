@@ -971,7 +971,25 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>The TsGroup is a dictionnary-like object to hold multiple <a href="../core.time_series/#pynapple.core.time_series.Ts"><code>Ts</code></a> or <a href="../core.time_series/#pynapple.core.time_series.Tsd"><code>Tsd</code></a> objects with different time index.</p>
 
+<p><strong>Attributes:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>time_support</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The time support of the TsGroup</p></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">class</span> <span class="nc">TsGroup</span><span class="p">(</span><span class="n">UserDict</span><span class="p">):</span>
@@ -1558,7 +1576,60 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>TsGroup Initializer</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>data</code></td>
+        <td><code>dict</code></td>
+        <td><p>Dictionnary containing Ts/Tsd objects</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>time_support</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The time support of the TsGroup. Ts/Tsd objects will be restricted to the time support if passed.</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>time_units</code></td>
+        <td><code>str</code></td>
+        <td><p>Time units if data does not contain Ts/Tsd objects (us, ms, s)</p></td>
+        <td><code>&#39;s&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>None</code></td>
+        <td><p>Meta-info about the Ts/Tsd objects.</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>RuntimeError</code></td>
+        <td><p>Raise error if the intersection of time support of Ts/Tsd object is empty.</p></td>
+      </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">time_support</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
@@ -1636,7 +1707,23 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>Return index/keys of TsGroup</p>
 
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>list</code></td>
+      <td><p>List of keys</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span> 
@@ -1669,7 +1756,23 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>Return a list of key/object.</p>
 
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>list</code></td>
+      <td><p>List of tuples</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1702,7 +1805,23 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>Return a list of all the Ts/Tsd objects in the TsGroup</p>
 
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>list</code></td>
+      <td><p>List of Ts/Tsd objects</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -1735,6 +1854,79 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>Add metadata informations about the TsGroup.</p>
+<p>Metadata are saved as a DataFrame.</p>
+
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>*args</code></td>
+        <td><code>None</code></td>
+        <td><p>pandas.Dataframe or list of pandas.DataFrame</p></td>
+        <td><code>()</code></td>
+      </tr>
+      <tr>
+        <td><code>**kwargs</code></td>
+        <td><code>None</code></td>
+        <td><p>Can be either pandas.Series or numpy.ndarray</p></td>
+        <td><code>{}</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>RuntimeError</code></td>
+        <td><p>Raise an error if no column labels are found when passing arguments.</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">2</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsgroup</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">TsGroup</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+</code></pre></div>
+    <p>To add metadata with a pandas.DataFrame:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">structs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">data</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;pfc&#39;</span><span class="p">,</span><span class="s1">&#39;pfc&#39;</span><span class="p">,</span><span class="s1">&#39;ca1&#39;</span><span class="p">],</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;struct&#39;</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsgroup</span><span class="o">.</span><span class="n">set_info</span><span class="p">(</span><span class="n">structs</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsgroup</span>
+  <span class="n">Index</span>    <span class="n">Freq</span><span class="o">.</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span>  <span class="n">struct</span>
+<span class="o">-------</span>  <span class="o">------------</span>  <span class="o">--------</span>
+      <span class="mi">0</span>             <span class="mi">1</span>  <span class="n">pfc</span>
+      <span class="mi">1</span>             <span class="mi">2</span>  <span class="n">pfc</span>
+      <span class="mi">2</span>             <span class="mi">4</span>  <span class="n">ca1</span>
+</code></pre></div>
+    <p>To add metadata with a pd.Series or numpy.ndarray:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">hd</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="n">data</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsgroup</span><span class="o">.</span><span class="n">set_info</span><span class="p">(</span><span class="n">hd</span><span class="o">=</span><span class="n">hd</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsgroup</span>
+  <span class="n">Index</span>    <span class="n">Freq</span><span class="o">.</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span>  <span class="n">struct</span>      <span class="n">hd</span>
+<span class="o">-------</span>  <span class="o">------------</span>  <span class="o">--------</span>  <span class="o">----</span>
+      <span class="mi">0</span>             <span class="mi">1</span>  <span class="n">pfc</span>          <span class="mi">0</span>
+      <span class="mi">1</span>             <span class="mi">2</span>  <span class="n">pfc</span>          <span class="mi">1</span>
+      <span class="mi">2</span>             <span class="mi">4</span>  <span class="n">ca1</span>          <span class="mi">1</span>
+</code></pre></div>
 
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
@@ -1818,7 +2010,42 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>Returns the metainfo located in one column</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>key</code></td>
+        <td><code>str</code></td>
+        <td><p>One of the metainfo columns name</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>pandas.Series</code></td>
+      <td><p>The metainfo</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">get_info</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
@@ -1856,7 +2083,62 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>Restricts a TsGroup object to a set of time intervals delimited by an IntervalSet object</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>ep</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>the IntervalSet object</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">2</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsgroup</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">TsGroup</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ep</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">IntervalSet</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">newtsgroup</span> <span class="o">=</span> <span class="n">tsgroup</span><span class="o">.</span><span class="n">restrict</span><span class="p">(</span><span class="n">ep</span><span class="p">)</span>
+</code></pre></div>
+    <p>All objects within the TsGroup automatically inherit the epochs defined by ep.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">newtsgroup</span><span class="o">.</span><span class="n">time_support</span>
+   <span class="n">start</span>    <span class="n">end</span>
+<span class="mi">0</span>    <span class="mf">0.0</span>  <span class="mf">100.0</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">newtsgroup</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">time_support</span>
+   <span class="n">start</span>    <span class="n">end</span>
+<span class="mi">0</span>    <span class="mf">0.0</span>  <span class="mf">100.0</span>
+</code></pre></div>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>TsGroup</code></td>
+      <td><p>TsGroup object restricted to ep</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">restrict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ep</span><span class="p">):</span>
@@ -1920,7 +2202,70 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>Replace the value of each Ts/Tsd object within the Ts group with the closest value from tsd argument</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>tsd</code></td>
+        <td><code>Tsd</code></td>
+        <td><p>The Tsd object holding the values to replace</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>ep</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>The IntervalSet object to restrict the operation</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>align</code></td>
+        <td><code>str</code></td>
+        <td><p>The method to align (closest/prev/next)</p></td>
+        <td><code>&#39;closest&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">2</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsgroup</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">TsGroup</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ep</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">IntervalSet</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>      
+</code></pre></div>
+    <p>The variable tsd is a time series object containing the values to assign, for example the tracking data:</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">tsd</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">Tsd</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">),</span> <span class="n">d</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">100</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ep</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">IntervalSet</span><span class="p">(</span><span class="n">start</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">end</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span> <span class="n">time_units</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">newtsgroup</span> <span class="o">=</span> <span class="n">tsgroup</span><span class="o">.</span><span class="n">value_from</span><span class="p">(</span><span class="n">tsd</span><span class="p">,</span> <span class="n">ep</span><span class="p">)</span>
+</code></pre></div>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>TsGroup</code></td>
+      <td><p>TsGroup object with the new values</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">value_from</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tsd</span><span class="p">,</span> <span class="n">ep</span><span class="p">,</span> <span class="n">align</span><span class="o">=</span><span class="s1">&#39;closest&#39;</span><span class="p">):</span>
@@ -1986,7 +2331,84 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>Count occurences of events within bin_size.</p>
+<p>bin_size should be seconds unless specified.
+If no epochs is passed, the data will be binned based on the time support.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>bin_size</code></td>
+        <td><code>float</code></td>
+        <td><p>The bin size (default is second)</p></td>
+        <td><code>&#39;second&#39;</code></td>
+      </tr>
+      <tr>
+        <td><code>ep</code></td>
+        <td><code>IntervalSet</code></td>
+        <td><p>IntervalSet to restrict the operation</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>time_units</code></td>
+        <td><code>str</code></td>
+        <td><p>Time units of bin size (us, ms, s)</p></td>
+        <td><code>&#39;s&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <p>This example shows how to count events within bins of 0.1 second for the first 100 seconds.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">2</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsgroup</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">TsGroup</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">ep</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">IntervalSet</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>          
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bincount</span> <span class="o">=</span> <span class="n">tsgroup</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">ep</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">bincount</span>
+          <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">2</span>
+<span class="n">Time</span> <span class="p">(</span><span class="n">s</span><span class="p">)</span>         
+<span class="mf">0.05</span>      <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mf">0.15</span>      <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mf">0.25</span>      <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">1</span>
+<span class="mf">0.35</span>      <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mf">0.45</span>      <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="o">...</span>      <span class="o">..</span> <span class="o">..</span> <span class="o">..</span>
+<span class="mf">99.55</span>     <span class="mi">0</span>  <span class="mi">1</span>  <span class="mi">1</span>
+<span class="mf">99.65</span>     <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mf">99.75</span>     <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">1</span>
+<span class="mf">99.85</span>     <span class="mi">0</span>  <span class="mi">0</span>  <span class="mi">0</span>
+<span class="mf">99.95</span>     <span class="mi">1</span>  <span class="mi">1</span>  <span class="mi">1</span>
+<span class="p">[</span><span class="mi">1000</span> <span class="n">rows</span> <span class="n">x</span> <span class="mi">3</span> <span class="n">columns</span><span class="p">]</span>
+</code></pre></div>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>TsdFrame</code></td>
+      <td><p>A TsdFrame with the columns being the index of each item in the TsGroup.</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">count</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bin_size</span><span class="p">,</span> <span class="n">ep</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">time_units</span> <span class="o">=</span> <span class="s1">&#39;s&#39;</span><span class="p">):</span>
@@ -2077,7 +2499,91 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>Return a TsGroup with all Ts/Tsd objects with values above threshold for metainfo under key.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>key</code></td>
+        <td><code>str</code></td>
+        <td><p>One of the metainfo columns name</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>thr</code></td>
+        <td><code>float</code></td>
+        <td><p>THe value for thresholding</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>op</code></td>
+        <td><code>str</code></td>
+        <td><p>The type of operation. Possibilities are '&gt;', '&lt;', '&gt;=' or '&lt;='.</p></td>
+        <td><code>&#39;&gt;&#39;</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Exceptions:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>RuntimeError</code></td>
+        <td><p>Raise eror is operation is not recognized.</p></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">2</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsgroup</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">TsGroup</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+  <span class="n">Index</span>    <span class="n">Freq</span><span class="o">.</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span>
+<span class="o">-------</span>  <span class="o">------------</span>
+      <span class="mi">0</span>             <span class="mi">1</span>
+      <span class="mi">1</span>             <span class="mi">2</span>
+      <span class="mi">2</span>             <span class="mi">4</span>   
+</code></pre></div>
+    <p>This exemple shows how to get a new TsGroup with all elements for which the metainfo frequency is above 1.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">newtsgroup</span> <span class="o">=</span> <span class="n">tsgroup</span><span class="o">.</span><span class="n">getby_threshold</span><span class="p">(</span><span class="s1">&#39;freq&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">op</span> <span class="o">=</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">)</span>
+  <span class="n">Index</span>    <span class="n">Freq</span><span class="o">.</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span>
+<span class="o">-------</span>  <span class="o">------------</span>
+      <span class="mi">1</span>             <span class="mi">2</span>
+      <span class="mi">2</span>             <span class="mi">4</span>
+</code></pre></div>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>TsGroup</code></td>
+      <td><p>The new TsGroup</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">getby_threshold</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">thr</span><span class="p">,</span> <span class="n">op</span> <span class="o">=</span> <span class="s1">&#39;&gt;&#39;</span><span class="p">):</span>
@@ -2160,7 +2666,77 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>Return a list of TsGroup binned.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>key</code></td>
+        <td><code>str</code></td>
+        <td><p>One of the metainfo columns name</p></td>
+        <td><em>required</em></td>
+      </tr>
+      <tr>
+        <td><code>bins</code></td>
+        <td><code>numpy.ndarray or list</code></td>
+        <td><p>The bin intervals</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">2</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsgroup</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">TsGroup</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">alpha</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">3</span><span class="p">))</span>
+  <span class="n">Index</span>    <span class="n">Freq</span><span class="o">.</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span>    <span class="n">alpha</span>                                                                    
+<span class="o">-------</span>  <span class="o">------------</span>  <span class="o">-------</span>
+      <span class="mi">0</span>             <span class="mi">1</span>        <span class="mi">0</span>
+      <span class="mi">1</span>             <span class="mi">2</span>        <span class="mi">1</span>
+      <span class="mi">2</span>             <span class="mi">4</span>        <span class="mi">2</span>
+</code></pre></div>
+    <p>This exemple shows how to bin the TsGroup according to one metainfo key.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">newtsgroup</span><span class="p">,</span> <span class="n">bincenter</span> <span class="o">=</span> <span class="n">tsgroup</span><span class="o">.</span><span class="n">getby_intervals</span><span class="p">(</span><span class="s1">&#39;alpha&#39;</span><span class="p">,</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">newtsgroup</span>
+<span class="p">[</span>  <span class="n">Index</span>    <span class="n">Freq</span><span class="o">.</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span>    <span class="n">alpha</span>
+ <span class="o">-------</span>  <span class="o">------------</span>  <span class="o">-------</span>
+       <span class="mi">0</span>             <span class="mi">1</span>        <span class="mi">0</span><span class="p">,</span>
+   <span class="n">Index</span>    <span class="n">Freq</span><span class="o">.</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span>    <span class="n">alpha</span>
+ <span class="o">-------</span>  <span class="o">------------</span>  <span class="o">-------</span>
+       <span class="mi">1</span>             <span class="mi">2</span>        <span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+    <p>By default, the function returns the center of the bins.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">bincenter</span>
+<span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">])</span>
+</code></pre></div>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>list</code></td>
+      <td><p>A list of TsGroup</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">getby_intervals</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">bins</span><span class="p">):</span>
@@ -2236,7 +2812,68 @@ TsGroup            (<span title="collections.UserDict">UserDict</span>)
 
     <div class="doc doc-contents ">
 
+      <p>Return a list of TsGroup grouped by category.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>key</code></td>
+        <td><code>str</code></td>
+        <td><p>One of the metainfo columns name</p></td>
+        <td><em>required</em></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Examples:</strong></p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">pynapple</span> <span class="k">as</span> <span class="nn">nap</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tmp</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">1</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">200</span><span class="p">,</span><span class="mf">0.5</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="mi">2</span><span class="p">:</span><span class="n">nap</span><span class="o">.</span><span class="n">Ts</span><span class="p">(</span><span class="n">t</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">300</span><span class="p">,</span><span class="mf">0.25</span><span class="p">),</span> <span class="n">time_units</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">),</span>
+<span class="p">}</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">tsgroup</span> <span class="o">=</span> <span class="n">nap</span><span class="o">.</span><span class="n">TsGroup</span><span class="p">(</span><span class="n">tmp</span><span class="p">,</span> <span class="n">group</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">])</span>
+  <span class="n">Index</span>    <span class="n">Freq</span><span class="o">.</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span>    <span class="n">group</span>
+<span class="o">-------</span>  <span class="o">------------</span>  <span class="o">-------</span>
+      <span class="mi">0</span>             <span class="mi">1</span>        <span class="mi">0</span>
+      <span class="mi">1</span>             <span class="mi">2</span>        <span class="mi">1</span>
+      <span class="mi">2</span>             <span class="mi">4</span>        <span class="mi">1</span>
+</code></pre></div>
+    <p>This exemple shows how to group the TsGroup according to one metainfo key.</p>
+    <div class="highlight"><pre><span></span><code><span class="o">&gt;&gt;&gt;</span> <span class="n">newtsgroup</span> <span class="o">=</span> <span class="n">tsgroup</span><span class="o">.</span><span class="n">getby_category</span><span class="p">(</span><span class="s1">&#39;group&#39;</span><span class="p">)</span>
+<span class="o">&gt;&gt;&gt;</span> <span class="n">newtsgroup</span>
+<span class="p">{</span><span class="mi">0</span><span class="p">:</span>   <span class="n">Index</span>    <span class="n">Freq</span><span class="o">.</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span>    <span class="n">group</span>
+ <span class="o">-------</span>  <span class="o">------------</span>  <span class="o">-------</span>
+       <span class="mi">0</span>             <span class="mi">1</span>        <span class="mi">0</span><span class="p">,</span>
+ <span class="mi">1</span><span class="p">:</span>   <span class="n">Index</span>    <span class="n">Freq</span><span class="o">.</span> <span class="p">(</span><span class="n">Hz</span><span class="p">)</span>    <span class="n">group</span>
+ <span class="o">-------</span>  <span class="o">------------</span>  <span class="o">-------</span>
+       <span class="mi">1</span>             <span class="mi">2</span>        <span class="mi">1</span>
+       <span class="mi">2</span>             <span class="mi">4</span>        <span class="mi">1</span><span class="p">}</span>
+</code></pre></div>
+
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>dict</code></td>
+      <td><p>A dictionnary of TsGroup</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\core\ts_group.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">getby_category</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>

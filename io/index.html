@@ -765,6 +765,7 @@
 <a id="pynapple.io.misc"></a>
     <div class="doc doc-contents first">
 
+      <p>Various io functions</p>
 
 
 
@@ -789,7 +790,48 @@
 
     <div class="doc doc-contents ">
 
+      <p>General Loader for Neurosuite, Phy or default session.</p>
 
+<p><strong>Parameters:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Description</th>
+      <th>Default</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td><code>path</code></td>
+        <td><code>str</code></td>
+        <td><p>The path to load the data</p></td>
+        <td><code>None</code></td>
+      </tr>
+      <tr>
+        <td><code>session_type</code></td>
+        <td><code>str</code></td>
+        <td><p>For the moment, pynapple support only Neurosuite.</p></td>
+        <td><code>None</code></td>
+      </tr>
+  </tbody>
+</table>
+<p><strong>Returns:</strong></p>
+<table>
+  <thead>
+    <tr>
+      <th>Type</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>Session</code></td>
+      <td><p>A class holding all the data from the session.</p></td>
+    </tr>
+  </tbody>
+</table>
         <details class="quote">
           <summary>Source code in <code>pynapple\io\misc.py</code></summary>
           <div class="highlight"><pre><span></span><code><span class="k">def</span> <span class="nf">load_session</span><span class="p">(</span><span class="n">path</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">session_type</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
